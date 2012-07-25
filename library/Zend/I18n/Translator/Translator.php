@@ -431,6 +431,34 @@ class Translator
     }
 
     /**
+     * Get all translated messages
+     * 
+     * @param string $textDomain
+     * @param string $locale
+     * @return array
+     */
+    public function getMessages($textDomain = 'default', $locale = null)
+    {
+        $locale = $locale ?: $this->getLocale();
+
+        if (!isset($this->messages[$textDomain][$locale])) {
+            $this->loadMessages($textDomain, $locale);
+
+            return (array) $this->messages[$textDomain][$locale];
+        }
+
+        if (null !== ($fallbackLocale = $this->getFallbackLocale())
+            && $locale !== $fallbackLocale
+        ) {
+            $this->loadMessages($textDomain, $fallbackLocale);
+
+            return (array) $this->messages[$textDomain][$fallbackLocale];
+        }
+
+        return array();
+    }
+
+    /**
      * Load messages for a given language and domain.
      *
      * @param  string $textDomain
