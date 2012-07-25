@@ -130,4 +130,16 @@ class TranslatorTest extends TestCase
         $this->assertEquals('Message 5 (en) Plural 1', $pl1);
         $this->assertEquals('Message 5 (en) Plural 2', $pl2);
     }
+
+    public function testGetMessages()
+    {
+        $messages = array('foo' => 'bar');
+
+        $loader = new TestLoader();
+        $loader->textDomain = new TextDomain($messages);
+        $this->translator->getPluginManager()->setService('test', $loader);
+        $this->translator->addTranslationFile('test', null);
+
+        $this->assertEquals($messages, $this->translator->getMessages());        
+    }
 }
