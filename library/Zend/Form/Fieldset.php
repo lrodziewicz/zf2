@@ -319,7 +319,9 @@ class Fieldset extends Element implements FieldsetInterface
             $messages = array();
             foreach ($this->byName as $name => $element) {
                 $messageSet = $element->getMessages();
-                if (!is_array($messageSet) && !$messageSet instanceof Traversable) {
+                if (!is_array($messageSet) 
+                    && !$messageSet instanceof Traversable
+                    || empty($messageSet)) {
                     continue;
                 }
                 $messages[$name] = $messageSet;
@@ -389,7 +391,7 @@ class Fieldset extends Element implements FieldsetInterface
                 continue;
             }
 
-            $element->setAttribute('value', $value);
+            $element->setValue($value);
         }
     }
 
