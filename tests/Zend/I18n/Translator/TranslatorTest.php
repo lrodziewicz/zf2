@@ -140,6 +140,6 @@ class TranslatorTest extends TestCase
         $this->translator->getPluginManager()->setService('test', $loader);
         $this->translator->addTranslationFile('test', null);
 
-        $this->assertEquals($messages, $this->translator->getMessages());        
+        $this->assertEquals($messages, $this->translator->getMessages());
     }
 }
